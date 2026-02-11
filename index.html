@@ -479,15 +479,25 @@
             }
         }
 
-        // 检查碰撞
+        // 检查碰撞 - 饕餮模式：无限生命，但保留墙壁碰撞
         function checkCollision(head) {
-            // 墙壁碰撞
+            // 饕餮模式：蛇可以无限生长，不会因为撞到自己而死亡
+            // 移除自身碰撞检测，让蛇可以无限生长
+            
+            // 保留墙壁碰撞检测，当撞墙时游戏结束
             if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-                return true;
+                return true; // 撞墙，游戏结束
             }
-
-            // 自身碰撞
-            return snake.some(segment => segment.x === head.x && segment.y === head.y);
+            
+            // 饕餮模式：不检测自身碰撞，蛇可以无限生长
+            // 注释掉自身碰撞检测，实现无限生命
+            // for (let i = 0; i < snake.length; i++) {
+            //     if (snake[i].x === head.x && snake[i].y === head.y) {
+            //         return true;
+            //     }
+            // }
+            
+            return false; // 没有碰撞
         }
 
         // 游戏结束
